@@ -21,8 +21,8 @@ const dev = process.env.NODE_ENV !== "production";
 const port = process.env.PORT || 3000;
 const ROOT_URL = dev ? `http://localhost:${port}` : process.env.PRODUCTION_URL;
 const server = express();
-var whitelist = ['http://localhost:3000', 'http://localhost', 'http://54.176.147.93']
-var corsOptions = {
+const whitelist = ['http://localhost:3000', 'http://localhost', 'http://54.176.147.93']
+const corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
       callback(null, true)
@@ -31,12 +31,9 @@ var corsOptions = {
     }
   }
 }
+server.use(cors(corsOptions));
 
-// Then pass them to cors:
-app.use(cors(corsOptions));
-server.use(cors());
 const mongooseOptions = {};
-
 mongoose
     .connect(
         process.env.MONGODB_URI,
