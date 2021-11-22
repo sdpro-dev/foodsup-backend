@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require("express");
+const cors = require('cors');
 const expressValidator = require("express-validator");
 const mongoose = require("mongoose");
 const passport = require("passport");
@@ -20,7 +21,20 @@ const dev = process.env.NODE_ENV !== "production";
 const port = process.env.PORT || 3000;
 const ROOT_URL = dev ? `http://localhost:${port}` : process.env.PRODUCTION_URL;
 const server = express();
+var whitelist = ['http://localhost:3000', 'http://localhost', 'http://54.176.147.93']
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
 
+// Then pass them to cors:
+app.use(cors(corsOptions));
+server.use(cors());
 const mongooseOptions = {};
 
 mongoose

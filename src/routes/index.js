@@ -3,7 +3,7 @@ const router = express.Router()
 const mongoose = require('mongoose'),
   FoodItems = mongoose.model('FoodItem');
 
-router.get('/', (req, res, next) => {
+router.get('/api/foodItem', (req, res, next) => {
   // Access the provided 'page' and 'limt' query parameters
   let query = req.query.query ?? '';
   let limit = req.query.limit;
@@ -21,6 +21,6 @@ router.get('/', (req, res, next) => {
 			res.json(items);
 		}
 	});
-})
+});
 
 module.exports = router
