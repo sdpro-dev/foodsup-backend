@@ -21,17 +21,7 @@ const dev = process.env.NODE_ENV !== "production";
 const port = process.env.PORT || 3000;
 const ROOT_URL = dev ? `http://localhost:${port}` : process.env.PRODUCTION_URL;
 const server = express();
-const whitelist = ['http://localhost:3000', 'http://localhost', 'http://54.176.147.93']
-const corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
-  }
-}
-server.use(cors(corsOptions));
+server.use(cors());
 
 const mongooseOptions = {};
 mongoose
